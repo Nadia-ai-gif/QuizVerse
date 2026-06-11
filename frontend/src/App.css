@@ -1,0 +1,596 @@
+/* ============================================================
+   🌌 GLOBAL LAYOUT STYLING MATRIX
+   ============================================================ */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0b132b;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   🧭 NAVIGATION MENU TAB CONTROL
+   ============================================================ */
+.nav-menu {
+  display: flex;
+  background-color: #1c2541;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  gap: 15px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #8c92ac;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-btn.active {
+  color: #4ea8de;
+  background-color: rgba(78, 168, 222, 0.15);
+}
+
+/* ============================================================
+   🎭 CONTENT STAGE WRAPPER
+   ============================================================ */
+.main-content-stage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ============================================================
+   🏢 DASHBOARD SUBMISSION FORM CARD
+   ============================================================ */
+.dashboard-card {
+  background-color: #1c2541;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 500px;
+}
+
+.dashboard-main-title {
+  font-size: 1.8rem;
+  color: #4ea8de;
+  margin-top: 0;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.dashboard-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dashboard-card label {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.dashboard-card select,
+.dashboard-card input {
+  background-color: #0b132b;
+  border: 2px solid #3a506b;
+  border-radius: 6px;
+  padding: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.dashboard-card select:focus,
+.dashboard-card input:focus {
+  border-color: #4ea8de;
+}
+
+.format-hint {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: -4px;
+}
+
+.start-btn {
+  background-color: #4ea8de;
+  color: #0b132b;
+  border: none;
+  border-radius: 6px;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.start-btn:hover {
+  background-color: #56cfe1;
+}
+
+.alert-box {
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid #ef4444;
+  color: #f87171;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* ============================================================
+   🕹️ QUIZ EVALUATION MOTOR ENGINE UI (FIXED LAYOUT STRUCTURE)
+   ============================================================ */
+.quiz-engine-box {
+  background-color: #1c2541;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 750px;
+}
+
+/* 🔥 The Space-Between Flexbox fix matching Image 2 */
+.engine-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;            
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.engine-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.engine-header span {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+/* ============================================================
+   📊 METRICS PROGRESS BAR LINE
+   ============================================================ */
+.progress-bar-container {
+  background-color: #0b132b;
+  height: 6px;
+  border-radius: 3px;
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background-color: #4ea8de;
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+/* ============================================================
+   ⏱️ REAL-TIME COUNTDOWN TIMER CONTAINER
+   ============================================================ */
+.timer-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(78, 168, 222, 0.08);
+  border: 1px solid rgba(78, 168, 222, 0.2);
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 25px;
+}
+
+.timer-container.timer-critical {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.timer-container.timer-critical .timer-text strong {
+  color: #ef4444;
+}
+
+.timer-container.timer-critical .timer-progress-bar {
+  background-color: #ef4444;
+}
+
+.timer-text {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.timer-progress-track {
+  background-color: rgba(11, 19, 43, 0.6);
+  height: 4px;
+  border-radius: 2px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.timer-progress-bar {
+  background-color: #4ea8de;
+  height: 100%;
+  transition: width 1s linear;
+}
+
+/* ============================================================
+   ❓ QUESTION CARD BLOCK & OPTION LIST GRID
+   ============================================================ */
+.question-text {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: #ffffff;
+}
+
+.timeout-warning-notice {
+  background-color: rgba(245, 158, 11, 0.15);
+  border: 1px solid #f59e0b;
+  color: #fbbf24;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.option-btn {
+  background-color: #0b132b;
+  border: 1px solid #3a506b;
+  color: #cbd5e1;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.option-btn:hover:not(:disabled) {
+  border-color: #4ea8de;
+  background-color: rgba(78, 168, 222, 0.05);
+  color: #ffffff;
+}
+
+/* Evaluation Track Highlight Indicators */
+.option-btn.correct-highlight {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  border-color: #10b981 !important;
+  color: #34d399 !important;
+  font-weight: 600;
+}
+
+.option-btn.wrong-highlight {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  border-color: #ef4444 !important;
+  color: #f87171 !important;
+}
+
+.option-btn.diminished-dark {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   🎮 FOOTER RUNTIME NAVIGATION INTERFACE CONTROLS
+   ============================================================ */
+.engine-footer-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #3a506b;
+  padding-top: 20px;
+}
+
+.control-btn {
+  background-color: #3a506b;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.control-btn:hover:not(:disabled) {
+  background-color: #5c7494;
+}
+
+.control-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.control-btn.forward {
+  background-color: #4ea8de;
+  color: #0b132b;
+}
+
+.control-btn.forward:hover:not(:disabled) {
+  background-color: #56cfe1;
+}
+
+.submit-finish-btn {
+  background-color: #10b981;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-finish-btn:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+/* ============================================================
+   🏅 EXAM PERFORMANCE SCORE SHEET CARDS
+   ============================================================ */
+.evaluation-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  max-width: 950px;
+  align-items: center;
+}
+
+.evaluation-card {
+  background-color: #1c2541;
+  padding: 35px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.evaluation-card h2 {
+  color: #4ea8de;
+  margin-top: 0;
+  font-size: 1.6rem;
+  margin-bottom: 5px;
+}
+
+.evaluation-card .subtext {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin-bottom: 25px;
+}
+
+.metrics-display-group {
+  background-color: #0b132b;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-bottom: 25px;
+}
+
+.metrics-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(58, 80, 107, 0.4);
+  font-size: 1rem;
+}
+
+.metrics-row:last-child {
+  border-bottom: none;
+}
+
+.metrics-row span {
+  color: #94a3b8;
+}
+
+.marks-highlight {
+  color: #56cfe1;
+  font-size: 1.1rem;
+}
+
+.status-badge {
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.status-badge.pass {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+.status-badge.fail {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.warning-note {
+  color: #f87171;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.return-portal-btn {
+  background: none;
+  border: 2px solid #3a506b;
+  color: #cbd5e1;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.return-portal-btn:hover {
+  border-color: #4ea8de;
+  color: #ffffff;
+}
+
+/* ============================================================
+   📋 ANALYTICAL ANALYTIC DATA HISTORICAL BLOCK TABLES
+   ============================================================ */
+.standalone-history-wrapper {
+  width: 100%;
+  max-width: 950px;
+}
+
+.history-table-container {
+  background-color: #1c2541;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.table-header-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3a506b;
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.history-main-title {
+  margin: 0 0 4px 0;
+  font-size: 1.3rem;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.history-sub-title {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.flush-logs-btn {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.flush-logs-btn:hover {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.empty-db-notice {
+  text-align: center;
+  padding: 40px 0;
+  color: #64748b;
+  font-style: italic;
+}
+
+.scroll-table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.metrics-log-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.metrics-log-table th {
+  background-color: #0b132b;
+  color: #94a3b8;
+  padding: 12px 16px;
+  font-weight: 600;
+  border-bottom: 2px solid #3a506b;
+}
+
+.metrics-log-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(58, 80, 107, 0.4);
+  color: #e2e8f0;
+}
+
+.metrics-log-table tr:last-child td {
+  border-bottom: none;
+}
+
+.monospace-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  color: #4ea8de;
+}
+
+.table-marks-color {
+  color: #56cfe1;
+  font-weight: 600;
+}
+
+.table-status-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.table-status-text.pass {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+}
+
+.table-status-text.fail {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+.timestamp-text {
+  color: #64748b;
+  font-size: 0.85rem;
+}

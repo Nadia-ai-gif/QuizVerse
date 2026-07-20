@@ -1,6 +1,6 @@
 # 🌌 QuizVerse
 
-> Live Application URL: https://github.com/Nadia-ai-gif/QuizVerse/deployments/Production%20%E2%80%93%20quiz-verse-3noo
+> Live Application URL: https://vercel.com/nadiashahzad/quiz-verse-9hwb
 > 
 > GitHub Repository: [https://github.com/Nadia-ai-gif/QuizVerse](https://github.com/Nadia-ai-gif/QuizVerse)
 

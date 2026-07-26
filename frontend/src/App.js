@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // Dynamic API URL: uses environment variable if available, otherwise defaults to relative path for Vercel deployment
-const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || '';
+const API_BASE_URL = 'http://localhost:5000';
 
 const full80QuestionsDataset = [
     // ==========================================

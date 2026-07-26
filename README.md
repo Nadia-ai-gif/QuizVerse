@@ -1,7 +1,7 @@
 # 🎯 QuizVerse - AI-Powered Interactive Quiz Platform
 
-> **Live Application:** [https://quiz-verse-2vtm.vercel.app](https://quiz-verse-2vtm.vercel.app)  
-> **GitHub Repository:** [https://github.com/Nadia-ai-gif/QuizVerse](https://github.com/Nadia-ai-gif/QuizVerse)
+> **Live Application:** https://quiz-verse-2vtm.vercel.app](https://quiz-verse-2vtm.vercel.app)  
+> **GitHub Repository:** https://github.com/Nadia-ai-gif/QuizVerse](https://github.com/Nadia-ai-gif/QuizVerse)
 
 ---
 

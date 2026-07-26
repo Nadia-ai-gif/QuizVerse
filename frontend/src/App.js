@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+// Dynamic API URL: uses environment variable if available, otherwise defaults to relative path for Vercel deployment
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 const full80QuestionsDataset = [
     // ==========================================
     // 🌐 SUBJECT 1: WEB DEVELOPMENT (20 MCQs)
@@ -150,7 +153,7 @@ function App() {
 
   const fetchLogsStream = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/results-history');
+      const res = await fetch(`${API_BASE_URL}/api/results-history`);
       if (res.ok) {
         const data = await res.json();
         setHistoryList(data);
@@ -165,7 +168,7 @@ function App() {
     setErrorMessage('');
 
     try {
-      const eligibilityRes = await fetch('http://localhost:5000/api/check-eligibility', {
+      const eligibilityRes = await fetch(`${API_BASE_URL}/api/check-eligibility`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ registrationNo })
@@ -178,7 +181,7 @@ function App() {
       }
 
       try {
-        const questionsRes = await fetch(`http://localhost:5000/api/questions?category=${encodeURIComponent(subject)}`);
+        const questionsRes = await fetch(`${API_BASE_URL}/api/questions?category=${encodeURIComponent(subject)}`);
         const mongoQuestions = await questionsRes.json();
 
         if (questionsRes.ok && mongoQuestions.length > 0) {
@@ -187,7 +190,7 @@ function App() {
           throw new Error("Empty cluster collection");
         }
       } catch (dbErr) {
-        console.warn("⚠️ MongoDB path unreachable. Deploying Failover Middleware...");
+        console.warn("⚠️ Database path unreachable. Deploying Fallback Dataset...");
         const fallbackList = full80QuestionsDataset.filter(q => q.category === subject);
         setQuestions(fallbackList);
       }
@@ -198,7 +201,17 @@ function App() {
       setView('quiz');
 
     } catch (err) {
-      setErrorMessage('❌ System Error: Ensure backend server is listening on port 5000.');
+      // Fallback mechanism if API fails totally
+      const fallbackList = full80QuestionsDataset.filter(q => q.category === subject);
+      if (fallbackList.length > 0) {
+        setQuestions(fallbackList);
+        setCurrentQuestionIndex(0);
+        setSelectedAnswers({});
+        setTimeLeft(30);
+        setView('quiz');
+      } else {
+        setErrorMessage('❌ System Error: Unable to fetch quiz questions.');
+      }
     }
   };
 
@@ -222,7 +235,7 @@ function App() {
     setView('evaluation');
 
     try {
-      await fetch('http://localhost:5000/api/submit-results', {
+      await fetch(`${API_BASE_URL}/api/submit-results`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -241,7 +254,7 @@ function App() {
   const handleWipeDatabaseCollections = async () => {
     if (!window.confirm("Are you sure you want to drop the logs tracking records?")) return;
     try {
-      const res = await fetch('http://localhost:5000/api/clear-history', { method: 'DELETE' });
+      const res = await fetch(`${API_BASE_URL}/api/clear-history`, { method: 'DELETE' });
       if (res.ok) {
         setHistoryList([]);
       }
@@ -273,7 +286,7 @@ function App() {
         <div className="table-header-block">
           <div className="table-title-centered-wrapper">
             <h3 className="history-main-title">📜 FULL STUDENT MARKS HISTORY</h3>
-            <p className="history-sub-title">Database record summary generated automatically from active MongoDB instance values.</p>
+            <p className="history-sub-title">Database record summary generated automatically.</p>
           </div>
           <button className="flush-logs-btn" onClick={handleWipeDatabaseCollections}>🗑️ Flush Logs</button>
         </div>
@@ -294,11 +307,11 @@ function App() {
               </thead>
               <tbody>
                 {historyList.map((log) => (
-                  <tr key={log._id}>
-                    <td className="monospace-text">{log.registrationNo.toUpperCase()}</td>
+                  <tr key={log._id || log.id}>
+                    <td className="monospace-text">{log.registrationNo?.toUpperCase()}</td>
                     <td>{log.subject}</td>
                     <td className="table-marks-color">{log.marksObtained}</td>
-                    <td><span className={`table-status-text ${log.status.toLowerCase()}`}>{log.status}</span></td>
+                    <td><span className={`table-status-text ${log.status?.toLowerCase()}`}>{log.status}</span></td>
                     <td className="timestamp-text">{new Date(log.timestamp).toLocaleString()}</td>
                   </tr>
                 ))}
@@ -358,70 +371,44 @@ function App() {
 
         {view === 'quiz' && (
           <div className="quiz-engine-box">
-            {/* 🛠️ Decoupled row fields container supporting flex alignments */}
             <div className="engine-header">
               <h3>Subject track: {subject}</h3>
-              <span>Question {currentQuestionIndex + 1} of 20</span>
+              <div className="timer-badge">⏳ Time Remaining: {timeLeft}s</div>
             </div>
-            
-            <div className="progress-bar-container">
-              <div className="progress-bar-fill" style={{ width: `${((currentQuestionIndex + 1) / 20) * 100}%` }}></div>
-            </div>
-            
-            <div className={`timer-container ${timeLeft <= 10 ? 'timer-critical' : ''}`}>
-              <span className="timer-icon">⏱️</span>
-              <span className="timer-text">Time Remaining: <strong>{timeLeft}s</strong></span>
-              <div className="timer-progress-track">
-                <div className="timer-progress-bar" style={{ width: `${(timeLeft / 30) * 100}%` }}></div>
+
+            <div className="question-card">
+              <h4>Question {currentQuestionIndex + 1} of 20</h4>
+              <p>{questions[currentQuestionIndex]?.questionText}</p>
+
+              <div className="options-grid">
+                {questions[currentQuestionIndex]?.options.map((opt, idx) => (
+                  <button 
+                    key={idx} 
+                    className={getOptionClassName(opt)} 
+                    onClick={() => handleSelectOption(opt)}
+                  >
+                    {opt}
+                  </button>
+                ))}
               </div>
             </div>
 
-            <p className="question-text">
-               <strong style={{color: '#4ea8de'}}>Q{currentQuestionIndex + 1}:</strong> {
-                 questions[currentQuestionIndex]?.questionText
-               }
-            </p>
-
-            {selectedAnswers[currentQuestionIndex] === "TIMEOUT_NO_ANSWER" && (
-              <p className="timeout-warning-notice">⚠️ Time expired for this question! Response locked.</p>
-            )}
-
-            <div className="options-grid">
-              {questions[currentQuestionIndex]?.options.map((opt, i) => (
-                <button 
-                  key={i} 
-                  className={getOptionClassName(opt)}
-                  onClick={() => handleSelectOption(opt)}
-                  disabled={selectedAnswers[currentQuestionIndex] === "TIMEOUT_NO_ANSWER"}
-                >
-                  {opt}
-                </button>
-              ))}
-            </div>
-            
-            <div className="engine-footer-controls">
-              <button 
-                disabled={currentQuestionIndex === 0 || selectedAnswers[currentQuestionIndex] === "TIMEOUT_NO_ANSWER"} 
-                onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
-                className="control-btn"
-              >
-                Previous
-              </button>
+            <div className="quiz-footer-nav">
               {currentQuestionIndex < 19 ? (
                 <button 
+                  className="next-btn"
+                  onClick={() => setCurrentQuestionIndex(prev => prev + 1)}
                   disabled={!selectedAnswers[currentQuestionIndex]}
-                  onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
-                  className="control-btn forward"
                 >
-                  Next Question
+                  Next Question ➡️
                 </button>
               ) : (
                 <button 
-                  disabled={!selectedAnswers[currentQuestionIndex]}
+                  className="submit-btn"
                   onClick={handleEvaluateQuizResult}
-                  className="submit-finish-btn"
+                  disabled={!selectedAnswers[currentQuestionIndex]}
                 >
-                  Submit & Finish Exam
+                  Submit Quiz 🏁
                 </button>
               )}
             </div>
@@ -429,35 +416,18 @@ function App() {
         )}
 
         {view === 'evaluation' && (
-          <div className="evaluation-layout-wrapper">
-            <div className="evaluation-card">
-              <h2>QUIZ EVALUATION BOARD</h2>
-              <p className="subtext">Official Performance Card Metrics (Saved to MongoDB Atlas Cloud)</p>
-              
-              <div className="metrics-display-group">
-                <div className="metrics-row"><span>Student Reference ID:</span><strong>{registrationNo.toUpperCase()}</strong></div>
-                <div className="metrics-row"><span>Tested Area Topic:</span><strong>{subject}</strong></div>
-                <div className="metrics-row"><span>Marks Secured:</span><strong className="marks-highlight">{scoreMetrics.marks}</strong></div>
-                <div className="metrics-row">
-                  <span>Final Result Status:</span>
-                  <span className={`status-badge ${scoreMetrics.status.toLowerCase()}`}>{scoreMetrics.status}</span>
-                </div>
-              </div>
-              
-              {scoreMetrics.status === 'FAIL' && <p className="warning-note">⚠️ Evaluation score is below 50%. Retake recommended.</p>}
-              <button className="return-portal-btn" onClick={() => { setRegistrationNo(''); setView('dashboard'); }}>
-                Return to QuizVerse Portal Home
-              </button>
-            </div>
-            {renderHistoryTableBlock()}
+          <div className="evaluation-card">
+            <h2>🏆 Quiz Completion Summary</h2>
+            <p>Registration No: <strong>{registrationNo.toUpperCase()}</strong></p>
+            <p>Subject: <strong>{subject}</strong></p>
+            <p>Marks Obtained: <strong className="marks">{scoreMetrics.marks}</strong></p>
+            <p>Status: <span className={`status ${scoreMetrics.status.toLowerCase()}`}>{scoreMetrics.status}</span></p>
+
+            <button className="restart-btn" onClick={() => setView('dashboard')}>Return to Portal</button>
           </div>
         )}
 
-        {view === 'history_board' && (
-          <div className="standalone-history-wrapper">
-            {renderHistoryTableBlock()}
-          </div>
-        )}
+        {view === 'history_board' && renderHistoryTableBlock()}
       </div>
     </div>
   );

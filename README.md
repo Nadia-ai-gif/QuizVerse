@@ -1,39 +1,74 @@
-# 🌌 QuizVerse
+# 🎯 QuizVerse - AI-Powered Interactive Quiz Platform
 
-> Live Application URL: https://vercel.com/nadiashahzad/quiz-verse-9hwb
-> 
-> GitHub Repository: [https://github.com/Nadia-ai-gif/QuizVerse](https://github.com/Nadia-ai-gif/QuizVerse)
+> **Live Application:** [https://quiz-verse-2vtm.vercel.app](https://quiz-verse-2vtm.vercel.app)  
+> **GitHub Repository:** [https://github.com/Nadia-ai-gif/QuizVerse](https://github.com/Nadia-ai-gif/QuizVerse)
 
 ---
 
-## 📌 Problem Statement & Target Audience
+## 📌 Overview
 
-### The Problem
-Students and lifelong learners often struggle to retain dense study materials, lecture notes, and textbook content. Traditional flashcards and static study tools require manual card creation, which is time-consuming, while general online quizzes often fail to provide detailed, step-by-step explanations for *why* an answer is right or wrong.
+**QuizVerse** is an intelligent, full-stack quiz web application designed to test and enhance user knowledge across various academic and technical domains. Powered by modern web technologies, QuizVerse generates dynamic quizzes, evaluates responses in real-time, provides detailed feedback on performance, and tracks historical results for registered users.
 
-### Target Audience
-Students, exam candidates, and self-learners looking for an active recall tool that instantly generates custom assessments from their study materials.
-
-### The Solution
-**QuizVerse** is an interactive, AI-powered assessment platform that transforms user study notes, topics, or custom parameters into dynamic quizzes. Rather than simple trivia, QuizVerse evaluates user responses in real-time, providing targeted explanations to ensure true concept mastery.
+Whether you're preparing for technical assessments, testing web development skills, or tracking academic progress, QuizVerse provides a seamless, fast, and responsive user experience.
 
 ---
 
 ## ✨ Key Features
 
-- ⚡ **Instant Quiz Generation:** Generate custom quizzes on any subject, tailored to selected difficulty levels and topic focus areas.
-- 🤖 **AI Explanations & Active Recall:** Receive detailed feedback on every question, explaining why an answer is correct and breaking down common pitfalls for incorrect choices.
-- 📊 **Progress & Performance Tracking:** Track quiz scores, accuracy percentages, and performance over time.
-- 🎨 **Interactive UI:** Smooth navigation, real-time scoring, and instant review dashboards.
+- 🎯 **Domain-Specific Track Selection:** Choose from multiple subject tracks including Web Development, Data Science, and Custom AI Topics.
+- 🔐 **Registration Verification:** Built-in registration ID validation (e.g., student/token verification) to secure test attempts.
+- ⚡ **Real-Time Evaluation:** Instant scoring with detailed performance metrics upon quiz submission.
+- 📊 **Results & History Board:** Revisit past attempts and review detailed breakdowns of correct and incorrect answers.
+- 🎨 **Modern Responsive UI:** Dark-themed, sleek dashboard designed with React and CSS/Tailwind for mobile and desktop screens.
+- 🛠️ **Full-Stack Architecture:** Decoupled architecture featuring a React frontend and Node.js/Express (or Python) backend services.
 
 ---
 
-## 🧠 AI Feature & System Instructions
+## 📸 Application Preview & Screenshots
 
-### How the AI Works
-QuizVerse uses an internal API route to connect to the LLM API. The system enforces strict output structures using custom prompts to output valid JSON for seamless frontend rendering.
+### 1. Main Dashboard & Track Selection
+![QuizVerse Dashboard](./frontend/public/screenshot1.png)
+*Select your preferred track and enter registration credentials to start.*
 
-### 📜 System Instructions / Prompt Engine
+### 2. Interactive Quiz View
+![Active Quiz Session](./frontend/public/screenshot2.png)
+*Dynamic multiple-choice quiz interface with real-time progress indicators.*
+
+### 3. Results & Feedback Summary
+![Results Board](./frontend/public/screenshot3.png)
+*Detailed score review and performance analytics board.*
+
+---
+
+## 🛠️ Tech Stack & Tools
+
+| Component | Technology |
+| :--- | :--- |
+| **Frontend Framework** | React.js (Vite) |
+| **Styling** | Modern CSS Modules / TailwindCSS |
+| **State Management** | React Hooks & Context API |
+| **Backend API** | Node.js / Express |
+| **Deployment** | Vercel (Frontend & Serverless API) |
+| **Version Control** | Git & GitHub |
+
+---
+
+## 📁 Repository Structure
+
 ```text
-You are an expert tutor and assessment generator for QuizVerse, an educational active-recall platform.
+QuizVerse/
+├── frontend/                  # React + Vite frontend application
+│   ├── src/
+│   │   ├── components/        # Reusable UI components (Quiz, Results, Track selector)
+│   │   ├── pages/             # Page views (Dashboard, Quiz, History)
+│   │   └── App.jsx            # Main App entry point
+│   ├── public/                # Static assets & screenshots
+│   ├── package.json           # Frontend dependencies
+│   └── vite.config.js         # Vite configuration
+│
+├── backend/                   # Node.js Express server / API logic
+│   ├── routes/                # API routes for quizzes & validation
+│   └── package.json           # Backend dependencies
+│
+└── README.md                  # Project documentation
 

@@ -1,6 +1,7 @@
 # 🎯 QuizVerse - AI-Powered Interactive Quiz Platform
 
 > **Live Application:** https://quiz-verse-2vtm.vercel.app
+> 
 > **GitHub Repository:** https://github.com/Nadia-ai-gif/QuizVerse
 
 ---
@@ -24,19 +25,7 @@ Whether you're preparing for technical assessments, testing web development skil
 
 ---
 
-## 📸 Application Preview & Screenshots
 
-### 1. Main Dashboard & Track Selection
-![QuizVerse Dashboard](./frontend/public/screenshot1.png)
-*Select your preferred track and enter registration credentials to start.*
-
-### 2. Interactive Quiz View
-![Active Quiz Session](./frontend/public/screenshot2.png)
-*Dynamic multiple-choice quiz interface with real-time progress indicators.*
-
-### 3. Results & Feedback Summary
-![Results Board](./frontend/public/screenshot3.png)
-*Detailed score review and performance analytics board.*
 
 ---
 
